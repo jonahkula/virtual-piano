@@ -2,14 +2,11 @@ body{
     background: antiquewhite;
 }
 
-#title{ 
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-}
-
 #top{
     margin-top: 15px;
     margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #notes{
@@ -54,17 +51,32 @@ body{
     transform: translateY(5px);
 }
 
-#instructionSet{
+#octave{
     margin-top: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     display: flex;
     justify-content: center;
-}
-
-#instructions{
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
 }
+
+#table{
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+#commands{
+    border-collapse: collapse;
+}
+
+#commands td, #commands th {
+    border: 1px solid black;
+    padding: 7px;
+  }
 
 #button{
     display: flex;
