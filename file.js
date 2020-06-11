@@ -1,11 +1,12 @@
 $(document).ready(function () {
+    // for when you click a piano button
     $('.white , .black').on('click', function (event) {
         let pitch = $(event.currentTarget).attr('pitch');
         let tone = $(event.currentTarget).attr('tone');
-        chooseTone(tone);
-        comparePitches(pitch);
+        playAndCompare(tone, pitch);
     });
 
+    // for when you click the game button
     $('.game').on('click', function (event) {
         playTone(tone[guess]);
         guessed = false;
@@ -21,8 +22,9 @@ let guessCompare;
 var guessed = true;
 let correct = 0;
 let missed = 0;
-var octave = 5;
+var octave = 4;
 
+// all the notes available for the website
 var tone = {
     'C4': 261.63, 'Db4': 277.18, 'D4': 293.66, 'Eb4': 311.13, 'E4': 329.63, 'F4': 349.23, 'Gb4': 369.99,
     'G4': 392.00, 'Ab4': 415.30, 'A4': 440.00, 'Bb4': 466.16, 'B4': 493.88, 'C5': 523.25, 'Db5': 554.37,
@@ -69,146 +71,45 @@ function playSound(waveType, startFreq, endTime) {
     }
 }
 
+// plays the audio for the given pitch
 function chooseTone(pitch) {
-    if (octave == 4) {
-        if (pitch == "C1")
-            playTone(tone["C4"]);
-        else if (pitch == "Db")
-            playTone(tone["Db4"]);
-        else if (pitch == "D")
-            playTone(tone["D4"]);
-        else if (pitch == "Eb")
-            playTone(tone["Eb4"]);
-        else if (pitch == "E")
-            playTone(tone["E4"]);
-        else if (pitch == "F")
-            playTone(tone["F4"]);
-        else if (pitch == "Gb")
-            playTone(tone["Gb4"]);
-        else if (pitch == "G")
-            playTone(tone["G4"]);
-        else if (pitch == "Ab")
-            playTone(tone["Ab4"]);
-        else if (pitch == "A")
-            playTone(tone["A4"]);
-        else if (pitch == "Bb")
-            playTone(tone["Bb4"]);
-        else if (pitch == "B")
-            playTone(tone["B4"]);
-        else if (pitch == "C2")
-            playTone(tone["C5"]);
-    }
-    else if (octave == 5) {
-        if (pitch == "C1")
-            playTone(tone["C5"]);
-        else if (pitch == "Db")
-            playTone(tone["Db5"]);
-        else if (pitch == "D")
-            playTone(tone["D5"]);
-        else if (pitch == "Eb")
-            playTone(tone["Eb5"]);
-        else if (pitch == "E")
-            playTone(tone["E5"]);
-        else if (pitch == "F")
-            playTone(tone["F5"]);
-        else if (pitch == "Gb")
-            playTone(tone["Gb5"]);
-        else if (pitch == "G")
-            playTone(tone["G5"]);
-        else if (pitch == "Ab")
-            playTone(tone["Ab5"]);
-        else if (pitch == "A")
-            playTone(tone["A5"]);
-        else if (pitch == "Bb")
-            playTone(tone["Bb5"]);
-        else if (pitch == "B")
-            playTone(tone["B5"]);
-        else if (pitch == "C2")
-            playTone(tone["C6"]);
-    }
-    else {
-        if (pitch == "C1")
-            playTone(tone["C6"]);
-        else if (pitch == "Db")
-            playTone(tone["Db6"]);
-        else if (pitch == "D")
-            playTone(tone["D6"]);
-        else if (pitch == "Eb")
-            playTone(tone["Eb6"]);
-        else if (pitch == "E")
-            playTone(tone["E6"]);
-        else if (pitch == "F")
-            playTone(tone["F6"]);
-        else if (pitch == "Gb")
-            playTone(tone["Gb6"]);
-        else if (pitch == "G")
-            playTone(tone["G6"]);
-        else if (pitch == "Ab")
-            playTone(tone["Ab6"]);
-        else if (pitch == "A")
-            playTone(tone["A6"]);
-        else if (pitch == "Bb")
-            playTone(tone["Bb6"]);
-        else if (pitch == "B")
-            playTone(tone["B6"]);
-        else if (pitch == "C2")
-            playTone(tone["C7"]);
-    }
+    if (pitch == "C1")
+        pitch = "C" + octave;
+    else if (pitch == "C2")
+        pitch = "C" + (octave + 1);
+    else
+        pitch += octave;
+    playTone(tone[pitch]);
 }
 
+// adds key listeners for the website
 document.addEventListener('keypress', (e) => {
-    if (e.code === "KeyW") {
-        chooseTone("C1");
-        comparePitches("C");
-    }
-    else if (e.code === "Digit3") {
-        chooseTone("Db");
-        comparePitches("C#/Db");
-    }
-    else if (e.code === "KeyE") {
-        chooseTone("D");
-        comparePitches("D");
-    }
-    else if (e.code === "Digit4") {
-        chooseTone("Eb");
-        comparePitches("D#/Eb");
-    }
-    else if (e.code === "KeyR") {
-        chooseTone("E");
-        comparePitches("E");
-    }
-    else if (e.code === "KeyT") {
-        chooseTone("F");
-        comparePitches("F");
-    }
-    else if (e.code === "Digit6") {
-        chooseTone("Gb");
-        comparePitches("F#/Gb");
-    }
-    else if (e.code === "KeyY") {
-        chooseTone("G");
-        comparePitches("G");
-    }
-    else if (e.code === "Digit7") {
-        chooseTone("Ab");
-        comparePitches("G#/Ab");
-    }
-    else if (e.code === "KeyU") {
-        chooseTone("A");
-        comparePitches("A");
-    }
-    else if (e.code === "Digit8") {
-        chooseTone("Bb");
-        comparePitches("A#/Bb");
-    }
-    else if (e.code === "KeyI") {
-        chooseTone("B");
-        comparePitches("B");
-    }
-    else if (e.code === "KeyO") {
-        chooseTone("C2");
-        comparePitches("C");
-    }
+    if (e.code === "KeyW")
+        playAndCompare("C1", "C");
+    else if (e.code === "Digit3")
+        playAndCompare("Db", "C#/Db");
+    else if (e.code === "KeyE")
+        playAndCompare("D", "D");
+    else if (e.code === "Digit4")
+        playAndCompare("Eb", "D#/Eb");
+    else if (e.code === "KeyR")
+        playAndCompare("E", "E");
+    else if (e.code === "KeyT")
+        playAndCompare("F", "F");
+    else if (e.code === "Digit6")
+        playAndCompare("Gb", "F#/Gb");
+    else if (e.code === "KeyY")
+        playAndCompare("G", "G");
+    else if (e.code === "Digit7")
+        playAndCompare("Ab", "G#/Ab");
+    else if (e.code === "KeyU")
+        playAndCompare("A", "A");
+    else if (e.code === "Digit8")
+        playAndCompare("Bb", "A#/Bb");
+    else if (e.code === "KeyI")
+        playAndCompare("B", "B");
+    else if (e.code === "KeyO")
+        playAndCompare("C2", "C");
     else if (e.code === "KeyQ") {
         octave--;
         if (octave < 4)
@@ -223,108 +124,63 @@ document.addEventListener('keypress', (e) => {
     }
 })
 
-function randomNote() {
-    let rand = Math.floor((Math.random() * 37) + 1);
-    if (rand == 1)
-        guess = "C4";
-    else if (rand == 2)
-        guess = "Db4";
-    else if (rand == 3)
-        guess = "D4";
-    else if (rand == 4)
-        guess = "Eb4";
-    else if (rand == 5)
-        guess = "E4";
-    else if (rand == 6)
-        guess = "F4";
-    else if (rand == 7)
-        guess = "Gb4";
-    else if (rand == 8)
-        guess = "G4";
-    else if (rand == 9)
-        guess = "Ab4";
-    else if (rand == 10)
-        guess = "A4";
-    else if (rand == 11)
-        guess = "Bb4";
-    else if (rand == 12)
-        guess = "B4";
-    else if (rand == 13)
-        guess = "C5";
-    else if (rand == 14)
-        guess = "Db5";
-    else if (rand == 15)
-        guess = "D5";
-    else if (rand == 16)
-        guess = "Eb5";
-    else if (rand == 17)
-        guess = "E5";
-    else if (rand == 18)
-        guess = "F5";
-    else if (rand == 19)
-        guess = "Gb5";
-    else if (rand == 20)
-        guess = "G5";
-    else if (rand == 21)
-        guess = "Ab5";
-    else if (rand == 22)
-        guess = "A5";
-    else if (rand == 23)
-        guess = "Bb5";
-    else if (rand == 24)
-        guess = "B5";
-    else if (rand == 25)
-        guess = "C6";
-    else if (rand == 26)
-        guess = "Db6";
-    else if (rand == 27)
-        guess = "D6";
-    else if (rand == 28)
-        guess = "Eb6";
-    else if (rand == 29)
-        guess = "E6";
-    else if (rand == 30)
-        guess = "F6";
-    else if (rand == 31)
-        guess = "Gb6";
-    else if (rand == 32)
-        guess = "G6";
-    else if (rand == 33)
-        guess = "Ab6";
-    else if (rand == 34)
-        guess = "A6";
-    else if (rand == 35)
-        guess = "Bb6";
-    else if (rand == 36)
-        guess = "B6";
-    else
-        guess = "C7";
-    if (guess == "C4" || guess == "C5" || guess == "C6" || guess == "C7")
-        guessCompare = "C";
-    else if (guess == "Db4" || guess == "Db5" || guess == "Db6")
-        guessCompare = "C#/Db";
-    else if (guess == "D4" || guess == "D5" || guess == "D6")
-        guessCompare = "D";
-    else if (guess == "Eb4" || guess == "Eb5" || guess == "Eb6")
-        guessCompare = "D#/Eb";
-    else if (guess == "E4" || guess == "E5" || guess == "E6")
-        guessCompare = "E";
-    else if (guess == "F4" || guess == "F5" || guess == "F6")
-        guessCompare = "F";
-    else if (guess == "Gb4" || guess == "Gb5" || guess == "Gb6")
-        guessCompare = "F#/Gb";
-    else if (guess == "G4" || guess == "G5" || guess == "G6")
-        guessCompare = "G";
-    else if (guess == "Ab4" || guess == "Ab5" || guess == "Ab6")
-        guessCompare = "G#/Ab";
-    else if (guess == "A4" || guess == "A5" || guess == "A6")
-        guessCompare = "A";
-    else if (guess == "Bb4" || guess == "Bb5" || guess == "Bb6")
-        guessCompare = "A#/Bb";
-    else
-        guessCompare = "B";
+// plays note and compares it with the random note
+playAndCompare = (note, pitch) => {
+    chooseTone(note);
+    comparePitches(pitch);
 }
 
+// chooses the random note for the mini game
+function randomNote() {
+    // * (max - min + 1)) + min : for random values inclusive between min and max
+    let randNote = Math.floor(Math.random() * (12 - 1 + 1)) + 1;
+    let randOctave = Math.floor(Math.random() * (7 - 4 + 1)) + 4;
+    if (randOctave == 7 && randNote != 1)
+        randomNote();
+    switch (randNote) {
+        case 1:
+            guessCompare = "C";
+            break;
+        case 2:
+            guessCompare = "C#/Db";
+            break;
+        case 3:
+            guessCompare = "D";
+            break;
+        case 4:
+            guessCompare = "D#/Eb";
+            break;
+        case 5:
+            guessCompare = "E";
+            break;
+        case 6:
+            guessCompare = "F";
+            break;
+        case 7:
+            guessCompare = "F#/Gb";
+            break;
+        case 8:
+            guessCompare = "G";
+            break;
+        case 9:
+            guessCompare = "G#/Ab";
+            break;
+        case 10:
+            guessCompare = "A";
+            break;
+        case 11:
+            guessCompare = "A#/Bb";
+            break;
+        default:
+            guessCompare = "B";
+    }
+    if (guessCompare.length > 1)
+        guess = guessCompare.substring(3) + randOctave;
+    else
+        guess = guessCompare + randOctave
+}
+
+// compare your note with the random note and updates score board
 function comparePitches(pitch) {
     if (guessed == false) {
         if (guessCompare == pitch)

@@ -4,7 +4,7 @@ body{
 
 #top{
     margin-top: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -39,6 +39,8 @@ body{
     border: none;
     float: left;
     width: 75px;
+    position: relative;
+    top: -7px;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     box-shadow: 0 9px grey;
@@ -63,7 +65,7 @@ body{
 #table{
     display: flex;
     justify-content: center;
-    font-size: 18px;
+    font-size: 17px;
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
     margin-bottom: 28px;
@@ -75,8 +77,10 @@ body{
 
 #commands td, #commands th {
     border: 1px solid black;
-    padding: 7px;
-  }
+    padding: 5px;
+    height: 25px;
+    width: 75px;
+}
 
 #button{
     display: flex;
