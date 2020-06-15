@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     // for when you click the game button
     $('.game').on('click', function (event) {
-        playTone(tone[guess]);
+        playNote(tone[guess]);
         guessed = false;
     });
 });
@@ -34,7 +34,8 @@ var tone = {
     'B6': 1975.53, 'C7': 2093.00,
 }
 
-playTone = (frequency, type, duration) => {
+// function that outputs and plays note from browser
+playNote = (frequency, type, duration) => {
     if (type === undefined)
         type = "sine";
     if (duration === undefined)
@@ -51,35 +52,15 @@ playTone = (frequency, type, duration) => {
     g.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + duration);
 }
 
-function playSound(waveType, startFreq, endTime) {
-    if (soundObj[arguments[0]] && arguments.length === 1) {
-        var soundName = arguments[0];
-        playSound(...soundObj[soundName]);
-    } else {
-        var oscillatorNode = context.createOscillator();
-        var gainNode = context.createGain();
-        oscillatorNode.type = waveType;
-        oscillatorNode.frequency.setValueAtTime(startFreq, context.currentTime);
-        for (var i = 3; i < arguments.length; i += 2)
-            oscillatorNode.frequency.exponentialRampToValueAtTime(arguments[i], context.currentTime + arguments[i + 1]);
-        gainNode.gain.setValueAtTime(0.3, context.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.1, context.currentTime + 0.5);
-        oscillatorNode.connect(gainNode);
-        gainNode.connect(context.destination);
-        oscillatorNode.start();
-        oscillatorNode.stop(context.currentTime + endTime);
-    }
-}
-
-// plays the audio for the given pitch
-function chooseTone(pitch) {
+// chooses the note to play based off note name and octave
+function chooseNote(pitch) {
     if (pitch == "C1")
         pitch = "C" + octave;
     else if (pitch == "C2")
         pitch = "C" + (octave + 1);
     else
         pitch += octave;
-    playTone(tone[pitch]);
+    playNote(tone[pitch]);
 }
 
 // adds key listeners for the website
@@ -126,7 +107,7 @@ document.addEventListener('keypress', (e) => {
 
 // plays note and compares it with the random note
 playAndCompare = (note, pitch) => {
-    chooseTone(note);
+    chooseNote(note);
     comparePitches(pitch);
 }
 
