@@ -37,7 +37,7 @@ function choosePitch(pitch) {
 }
 
 // adds key listeners for the website
-document.addEventListener("keypress", (e) => {
+document.addEventListener("keyup", (e) => {
   if (e.code === "KeyW") playAndCompare("C1", "C");
   else if (e.code === "Digit3") playAndCompare("Db", "C#/Db");
   else if (e.code === "KeyE") playAndCompare("D", "D");
